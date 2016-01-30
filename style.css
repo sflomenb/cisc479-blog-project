@@ -1,0 +1,7 @@
+.hidden {
+    display: none;
+}
+
+div[data-page=template] {
+  display: none;
+}
