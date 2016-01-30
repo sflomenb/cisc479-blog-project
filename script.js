@@ -4,11 +4,7 @@
 //     document.body.appendChild($home);
 //     $home.innerHTML = "home";
     
-    
-    
-    
-    
-    
+  
 //     var $newPost = document.createElement('div');
 //     $newPost.setAttribute("id", 'new-post');
 //     $newPost.classList.add("hidden");
@@ -32,6 +28,8 @@ var Post = function(title,content,author){
   this.title = title;
   this.content = content;
   this.author = author;
+  //var that = this;
+  //addEventListener(that,'click',submit);
 };
 
 
@@ -44,7 +42,21 @@ var Post = function(title,content,author){
 // }
 
 var displayHome = function() {
-  var template = document.getElementById(pages[0]).innerHTML;
+
+  
+  var $home = document.getElementById("home");
+  
+  $home.innerHTML = "";
+        
+  var $homeHeader = document.createElement('h1');
+  $homeHeader.setAttribute('id', 'home-header');
+  $homeHeader.innerHTML = "Home";
+  $home.appendChild($homeHeader);
+  
+  var $but = document.createElement('button');
+  $but.setAttribute('id', 'plus');
+  $but.innerHTML = "+";
+  $home.appendChild($but);
   
   
   if(posts.length > 0) {
@@ -52,11 +64,10 @@ var displayHome = function() {
       var $showPost = document.createElement('div');
       $showPost.classList.add("post");
       $showPost.innerHTML = post.title + " by " + post.author;
-      // var myPost = "<div class='post'>" + post.title + " by " + post.author + "</div>";
-      // template += myPost;
-       template.appendChild($showPost);
-      //document.getElementById("home").appendChild($showPost);
-
+      $showPost.addEventListener('click',function(){
+        postDetails(post);
+      });
+      $home.appendChild($showPost);
      
     });
   }
@@ -67,33 +78,50 @@ var displayHome = function() {
     // var body = document.getElementById("home").innerHTML;
     // body += $noPosts2;
   }
-  // display.innerHTML = template;
-  display.appendChild(template);
+  $home.classList.remove('hidden');
   document.getElementById("plus").addEventListener('click',newPost);
   // document.getElementsByClassName("post").addEventListener('click', postDetails);
 }
 
-var postDetails = function() {
-  var template = document.getElementById(pages[2]).innerHTML;
-  display.innerHTML = template;
-  document.getElementById("back").addEventListener('click',displayHome);
+var postDetails = function(post) {
+  document.getElementById(pages[0]).classList.add('hidden');
+  
+  var $detail = document.getElementById("post-detail");
+  
+  $detail.innerHTML = "";
+  
+  
+  
+  var $postContent = document.createElement('div');
+  $postContent.innerHTML = post.title + " by " + post.author;
+  $detail.appendChild($postContent);
+  
+  var $but = document.createElement('button');
+  $but.setAttribute('id', 'back');
+  $but.innerHTML = "back";
+  $detail.appendChild($but);
+  
+  document.getElementById(pages[2]).classList.remove('hidden');
+  document.getElementById("back").addEventListener('click',function(){
+    document.getElementById(pages[2]).classList.add('hidden');
+    displayHome();
+  });
 }
 
 var newPost = function() {
-  var template = document.getElementById(pages[1]).innerHTML;
-  display.innerHTML = template;
-  document.getElementById("cancel").addEventListener('click',displayHome);
-  document.getElementById("submit").addEventListener('click',addPost);
-  
-  
+  document.getElementById(pages[0]).classList.add('hidden');
+  document.getElementById(pages[1]).classList.remove('hidden');
 }
 
-var addPost = function() {
+var submit = function() {
   
   var title = document.getElementById("title").value;
   var content = document.getElementById("content").value;
   var author = document.getElementById("author").value;
   posts.push(new Post(title, content, author));
+  document.getElementById("title").value = "";
+  document.getElementById("content").value = "";
+  document.getElementById("author").value = "";
   displayHome();
 }
 
@@ -101,5 +129,23 @@ var addPost = function() {
 // document.addEventListener('click', showNextPage);
 // showNextPage();
 
-displayHome();
+
 //console.log(document.getElementById("plus"));
+
+
+var init = function() {
+  displayHome();
+  
+  document.getElementById("cancel").addEventListener('click',function(){
+    document.getElementById(pages[1]).classList.add('hidden');
+    displayHome();
+  });
+  document.getElementById("submit").addEventListener('click',function(){
+    
+    document.getElementById(pages[1]).classList.add('hidden');
+    submit();
+  });
+  
+}
+
+init();
