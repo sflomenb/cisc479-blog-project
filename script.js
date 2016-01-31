@@ -24,6 +24,12 @@ var pages = ['home', 'new-post', 'post-detail'];
 
 var posts = [];
 
+var savePosts = function() {
+  localStorage.setItem("posts", JSON.stringify(posts));
+};
+
+
+
 var Post = function(title,content,author){
   this.title = title;
   this.content = content;
@@ -42,7 +48,8 @@ var Post = function(title,content,author){
 // }
 
 var displayHome = function() {
-
+  
+  posts = JSON.parse(localStorage.getItem("posts")) || posts;
   
   var $home = document.getElementById("home");
   
@@ -93,7 +100,7 @@ var postDetails = function(post) {
   
   
   var $postContent = document.createElement('div');
-  $postContent.innerHTML = post.title + " by " + post.author;
+  $postContent.innerHTML = post.title + " by " + post.author+"<br>"+post.content;
   $detail.appendChild($postContent);
   
   var $but = document.createElement('button');
@@ -117,8 +124,13 @@ var submit = function() {
   
   var title = document.getElementById("title").value;
   var content = document.getElementById("content").value;
+  
+  var content = content.replace(/ /g,"&nbsp;");
+  var content = content.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
   var author = document.getElementById("author").value;
   posts.push(new Post(title, content, author));
+  savePosts();
   document.getElementById("title").value = "";
   document.getElementById("content").value = "";
   document.getElementById("author").value = "";
