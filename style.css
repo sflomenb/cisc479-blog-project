@@ -2,6 +2,108 @@
     display: none;
 }
 
-div[data-page=template] {
-  display: none;
+* {
+  font-family: "Avenir";
+}
+
+#new-post {
+  width: 322px;
+}
+
+#post-detail, .detail, #new-post {
+  margin-left: auto;
+  margin-right: auto;
+}
+#post-detail, .detail {
+  width: 600px;
+  word-wrap: normal;
+}
+
+#detail-title {
+  font-size: 48px;
+}
+
+#detail-author {
+  font-size: 27px;
+}
+
+#detail-content {
+  word-wrap: normal;
+}
+
+h1, .but {
+  display: inline-block;
+}
+
+.but {
+  padding: 5px 10px;
+  background-color: #7EB8CB;
+  color: #FDFFFF;
+}
+
+/*DAF0F8*/
+
+#buttons {
+  width: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.but:hover {
+  background-color: #5190A5;
+}
+
+#cancel {
+  background-color: #FFCE9A;
+}
+
+#cancel:hover {
+  background-color: #FFBD77;
+}
+
+#plus {
+  /*width:100px;*/
+  /*height:50px;*/
+}
+
+.post {
+  width:500px;
+  height:120px;
+  background:#FDFFFF;
+  margin-top:15px;
+}
+.error {
+    border:2px solid red;
+}
+
+body{
+  background:lightblue;
+}
+
+.post-left{
+  float:left;
+  width:4%;
+  overflow:hidden;
+  margin-left:1%;
+  margin-top:8%;
+}
+
+.post-text{
+  
+  float:left;
+  width:95%;
+  overflow:hidden;
+}
+
+.arrow-up {
+	font-family: Sans-Serif;
+	margin-bottom:-5px;
+	margin-left:-1px;
+	font-size:110%;
+}
+
+.arrow-down {
+  margin-top:-2px;
+	font-family: Sans-Serif;
+	font-size:95%;
 }
