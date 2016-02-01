@@ -6,11 +6,19 @@
   font-family: "Avenir";
 }
 
+#home {
+  max-width: 783px;
+}
+
 #new-post {
   width: 322px;
 }
 
-#post-detail, .detail, #new-post {
+#new-post-but {
+  /*float: right;*/
+}
+
+#post-detail, .detail, #new-post, #home {
   margin-left: auto;
   margin-right: auto;
 }
@@ -41,6 +49,11 @@ h1, .but {
   color: #FDFFFF;
 }
 
+#post-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 /*DAF0F8*/
 
 #buttons {
@@ -66,12 +79,21 @@ h1, .but {
   /*height:50px;*/
 }
 
-.post {
-  width:500px;
-  height:120px;
-  background:#FDFFFF;
-  margin-top:15px;
+.home-post-title {
+ font-size: 35px; 
 }
+
+.post {
+  width:250px;/*500px;*/
+  height:150px;
+  background:#FDFFFF;
+  margin:5px;
+}
+
+.post:hover {
+  background-color: #DAF0F8;
+}
+
 .error {
     border:2px solid red;
 }

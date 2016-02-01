@@ -34,7 +34,7 @@ var displayHome = function() {
   
   var $home = document.getElementById("home");
   
-  $home.innerHTML = "";
+  /*$home.innerHTML = "";
         
   var $homeHeader = document.createElement('h1');
   $homeHeader.setAttribute('id', 'home-header');
@@ -45,11 +45,20 @@ var displayHome = function() {
   $home.appendChild(mybr);
 
   var $but = document.createElement('div');
-  $but.setAttribute('id', 'plus');
+  $but.setAttribute('id', 'new-post');
   $but.classList.add('but');
   $but.innerHTML = "Add Post";
   $home.appendChild($but);
   
+  var $flex = document.createElement('div');
+  // $flex.setAttriflexe('id', 'new-post');
+  $flex.classList.add('post-list');
+  // $flex.innerHTML = "Add Post";
+  $home.appendChild($flex);*/
+  
+  var $postList = document.getElementById("post-list");
+  
+  $postList.innerHTML = "";
   
   if(posts.length > 0) {
     posts.forEach(function(post) {
@@ -86,9 +95,9 @@ var displayHome = function() {
       
       var $showText = document.createElement('div');
       $showText.classList.add("post-text");
-      $showText.innerHTML = "<span style='font-size:300%'>" + post.title+ "</span>" + "&nbsp;&nbsp;&nbsp; by " + post.author + "<br><br>" + post.content.replace(/<br>/g," ").substring(0,120) + "...";
+      $showText.innerHTML = "<span class='home-post-title'>" + post.title+ "</span>" + "&nbsp;&nbsp;&nbsp; by " + post.author + "<br><br>" + post.content.replace(/<br>/g," ").substring(0,120) + "...";
       $showText.addEventListener('click',function(){
-        postDetails(post);
+        displayPostDetails(post);
       });
       
       var $showPost = document.createElement('div');
@@ -97,7 +106,7 @@ var displayHome = function() {
       $showPost.appendChild($postLeft);
       $showPost.appendChild($showText);
       
-      $home.appendChild($showPost);
+      $postList.appendChild($showPost);
      
     });
   }
@@ -109,18 +118,16 @@ var displayHome = function() {
     // body += $noPosts2;
   }
   $home.classList.remove('hidden');
-  document.getElementById("plus").addEventListener('click',newPost);
-  // document.getElementsByClassName("post").addEventListener('click', postDetails);
+  document.getElementById("new-post-but").addEventListener('click',displayNewPost);
+  // document.getElementsByClassName("post").addEventListener('click', displayPostDetails);
 }
 
-var postDetails = function(post) {
+var displayPostDetails = function(post) {
   document.getElementById(pages[0]).classList.add('hidden');
   
   var $detail = document.getElementById("post-detail");
   
   $detail.innerHTML = "";
-  
-  
   
   // var $postContent = document.createElement('div');
   // $detail.appendChild($postContent);
@@ -164,7 +171,7 @@ var postDetails = function(post) {
   });
 }
 
-var newPost = function() {
+var displayNewPost = function() {
   document.getElementById(pages[0]).classList.add('hidden');
   document.getElementById(pages[1]).classList.remove('hidden');
 }
@@ -191,7 +198,7 @@ var submit = function() {
 // showNextPage();
 
 
-//console.log(document.getElementById("plus"));
+//console.log(document.getElementById("new-post"));
 
 var checkValid = function() {
   var valid = true;
