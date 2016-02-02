@@ -74,20 +74,16 @@ h1, .but {
   background-color: #FFBD77;
 }
 
-#plus {
-  /*width:100px;*/
-  /*height:50px;*/
-}
-
 .home-post-title {
- font-size: 35px; 
+ font-size: 25px; 
 }
 
 .post {
-  width:250px;/*500px;*/
+  width:250px;
   height:150px;
   background:#FDFFFF;
   margin:5px;
+  display: flex;
 }
 
 .post:hover {
@@ -102,12 +98,14 @@ body{
   background:lightblue;
 }
 
-.post-left{
-  float:left;
-  width:4%;
+.post-left {
   overflow:hidden;
-  margin-left:1%;
-  margin-top:8%;
+  align-self: center;
+  padding-left: 1px;
+  padding-right: 3px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .post-text{
@@ -115,6 +113,7 @@ body{
   float:left;
   width:95%;
   overflow:hidden;
+  /*background-color: teal;*/
 }
 
 .arrow-up {

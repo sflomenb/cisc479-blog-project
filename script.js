@@ -4,11 +4,14 @@ var pages = ['home', 'new-post', 'post-detail'];
 
 var posts = [];
 
+var myDB = new Firebase('https://sflomenb-blog.firebaseio.com/');
+
+var myDBPosts = myDB.child("posts");
+
 var savePosts = function() {
-  localStorage.setItem("posts", JSON.stringify(posts));
+  // localStorage.setItem("posts", JSON.stringify(posts));
+  myDBPosts.set(posts);
 };
-
-
 
 var Post = function(title,content,author){
   this.title = title;
@@ -30,9 +33,17 @@ var Post = function(title,content,author){
 
 var displayHome = function() {
   
-  posts = JSON.parse(localStorage.getItem("posts")) || posts;
+  // posts = JSON.parse(localStorage.getItem("posts")) || posts;
   
-  var $home = document.getElementById("home");
+  myDBPosts.on("value", function(snapshot) {
+  var theData = snapshot.val();
+  // console.log(JSON.stringify(theData));
+  posts = theData || posts;
+  // console.log("snapshot",posts);
+  loadHome();
+});
+  
+  // console.log("after snapshot",posts);
   
   /*$home.innerHTML = "";
         
@@ -56,6 +67,11 @@ var displayHome = function() {
   // $flex.innerHTML = "Add Post";
   $home.appendChild($flex);*/
   
+  
+}
+
+var loadHome = function() {
+  var $home = document.getElementById("home");
   var $postList = document.getElementById("post-list");
   
   $postList.innerHTML = "";
@@ -95,7 +111,7 @@ var displayHome = function() {
       
       var $showText = document.createElement('div');
       $showText.classList.add("post-text");
-      $showText.innerHTML = "<span class='home-post-title'>" + post.title+ "</span>" + "&nbsp;&nbsp;&nbsp; by " + post.author + "<br><br>" + post.content.replace(/<br>/g," ").substring(0,120) + "...";
+      $showText.innerHTML = "<span class='home-post-title'>" + post.title+ "</span>" + "<br>by " + post.author + "<br><br>" + post.content.replace(/<br>/g," ").replace(/&nbsp;/g," ").substring(0,30) + "...";
       $showText.addEventListener('click',function(){
         displayPostDetails(post);
       });
