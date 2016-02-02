@@ -4,14 +4,19 @@ var pages = ['home', 'new-post', 'post-detail'];
 
 var posts = [];
 
+var hasVoted = [];
+
 var myDB = new Firebase('https://sflomenb-blog.firebaseio.com/');
 
 var myDBPosts = myDB.child("posts");
 
 var savePosts = function() {
-  // localStorage.setItem("posts", JSON.stringify(posts));
   myDBPosts.set(posts);
 };
+
+var saveVotes = function() {
+  localStorage.setItem("votes", JSON.stringify(hasVoted));
+}
 
 var Post = function(title,content,author){
   this.title = title;
@@ -39,7 +44,14 @@ var displayHome = function() {
   var theData = snapshot.val();
   // console.log(JSON.stringify(theData));
   posts = theData || posts;
+  hasVoted = JSON.parse(localStorage.getItem("votes")) || hasVoted;
   // console.log("snapshot",posts);
+  if(hasVoted.length == 0) {
+    for(var i = 0; i< posts.length; i++) {
+      hasVoted[i] = false;
+    }
+    localStorage.setItem("votes", JSON.stringify(hasVoted));
+  }
   loadHome();
 });
   
@@ -83,10 +95,13 @@ var loadHome = function() {
       $upArrow.classList.add("arrow-up");
       $upArrow.innerHTML = "^";
       $upArrow.addEventListener('click',function(){
-        
-        post.score += 1;
-        $score.innerHTML = post.score;
-        savePosts();
+        if(!hasVoted[posts.indexOf(post)]) {
+          hasVoted[posts.indexOf(post)] = true;
+          saveVotes();
+          post.score += 1;
+          $score.innerHTML = post.score;
+          savePosts();
+        }
       });
       
       var $score = document.createElement('div');
@@ -97,9 +112,13 @@ var loadHome = function() {
       $downArrow.classList.add("arrow-down");
       $downArrow.innerHTML = "v";
       $downArrow.addEventListener('click',function(){
-        post.score -= 1;
-        $score.innerHTML = post.score;
-        savePosts();
+        if(!hasVoted[posts.indexOf(post)]) {
+          hasVoted[posts.indexOf(post)] = true;
+          saveVotes();
+          post.score -= 1;
+          $score.innerHTML = post.score;
+          savePosts();
+        }
       });
       
       var $postLeft = document.createElement('div');
