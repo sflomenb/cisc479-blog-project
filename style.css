@@ -122,17 +122,19 @@ body{
   /*background-color: teal;*/
 }
 
+.arrow-up, .arrow-down {
+  font-family: Sans-Serif;
+	font-size:110%;
+}
+
 .arrow-up {
-	font-family: Sans-Serif;
 	margin-bottom:-5px;
 	margin-left:-1px;
-	font-size:110%;
 }
 
 .arrow-down {
   margin-top:-2px;
 	font-family: Sans-Serif;
-	font-size:95%;
 }
 
 .upvote, .downvote {
@@ -150,6 +152,7 @@ body{
 #home-header {
   font-size: 33px;
 }
+
 
 @media screen and (max-width: 795px) {
   #new-post-but {
@@ -172,6 +175,18 @@ body{
   
   #detail-title, #content {
     width: 100%;
+  }
+  
+  .arrow-up, .arrow-down {
+    font-size: 30px;
+  }
+  
+  .score {
+    font-size: 23px;
+  }
+  
+  .post-left {
+    padding-right: 5px;
   }
   
 }

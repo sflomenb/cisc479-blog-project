@@ -121,6 +121,7 @@ var loadHome = function() {
       });
       
       var $score = document.createElement('div');
+      $score.classList.add("score");
       //$score.classList.add("post-left");
       $score.innerHTML = post.score;
       
@@ -172,8 +173,8 @@ var loadHome = function() {
       var $showPost = document.createElement('div');
       $showPost.classList.add("post");
       
-      $showPost.appendChild($postLeft);
       $showPost.appendChild($showText);
+      $showPost.appendChild($postLeft);
       
       $postList.appendChild($showPost);
      
