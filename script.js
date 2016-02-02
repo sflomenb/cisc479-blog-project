@@ -103,11 +103,21 @@ var loadHome = function() {
         if(hasVoted[posts.indexOf(post)] == 0) {
           hasVoted[posts.indexOf(post)] = 1;
           ev.currentTarget.classList.add("upvote");
-          saveVotes();
           post.score += 1;
-          $score.innerHTML = post.score;
-          savePosts();
         }
+        else if(hasVoted[posts.indexOf(post)] == 1) {
+          hasVoted[posts.indexOf(post)] = 0;
+          ev.currentTarget.classList.remove("upvote");
+          post.score -= 1;
+        }
+        else if(hasVoted[posts.indexOf(post)] == -1) {
+          hasVoted[posts.indexOf(post)] = 1;
+          ev.currentTarget.classList.remove("upvote");
+          post.score += 2;
+        }
+        saveVotes();
+        $score.innerHTML = post.score;
+        savePosts();
       });
       
       var $score = document.createElement('div');
@@ -123,17 +133,26 @@ var loadHome = function() {
         $downArrow.classList.add("arrow-down");
       }
       
-      
       $downArrow.innerHTML = "v";
       $downArrow.addEventListener('click',function(ev){
         if(hasVoted[posts.indexOf(post)] == 0) {
           hasVoted[posts.indexOf(post)] = -1;
           ev.currentTarget.classList.add("downvote");
-          saveVotes();
           post.score -= 1;
-          $score.innerHTML = post.score;
-          savePosts();
         }
+        else if(hasVoted[posts.indexOf(post)] == -1) {
+          hasVoted[posts.indexOf(post)] = 0;
+          ev.currentTarget.classList.remove("downvote");
+          post.score += 1;
+        }
+        else if(hasVoted[posts.indexOf(post)] == 1) {
+          hasVoted[posts.indexOf(post)] = -1;
+          ev.currentTarget.classList.remove("upvote");
+          post.score -= 2;
+        }
+        saveVotes();
+        $score.innerHTML = post.score;
+        savePosts();
       });
       
       var $postLeft = document.createElement('div');
