@@ -48,7 +48,7 @@ var displayHome = function() {
   // console.log("snapshot",posts);
   if(hasVoted.length == 0) {
     for(var i = 0; i< posts.length; i++) {
-      hasVoted[i] = false;
+      hasVoted[i] = 0;
     }
     localStorage.setItem("votes", JSON.stringify(hasVoted));
   }
@@ -92,11 +92,17 @@ var loadHome = function() {
     posts.forEach(function(post) {
       
       var $upArrow = document.createElement('div');
-      $upArrow.classList.add("arrow-up");
+      if(hasVoted[posts.indexOf(post)] == 1) {
+        $upArrow.classList.add("arrow-up", "upvote");
+      }
+      else {
+        $upArrow.classList.add("arrow-up");
+      }
       $upArrow.innerHTML = "^";
-      $upArrow.addEventListener('click',function(){
-        if(!hasVoted[posts.indexOf(post)]) {
-          hasVoted[posts.indexOf(post)] = true;
+      $upArrow.addEventListener('click',function(ev){
+        if(hasVoted[posts.indexOf(post)] == 0) {
+          hasVoted[posts.indexOf(post)] = 1;
+          ev.currentTarget.classList.add("upvote");
           saveVotes();
           post.score += 1;
           $score.innerHTML = post.score;
@@ -109,11 +115,20 @@ var loadHome = function() {
       $score.innerHTML = post.score;
       
       var $downArrow = document.createElement('div');
-      $downArrow.classList.add("arrow-down");
+      
+      if(hasVoted[posts.indexOf(post)] == -1) {
+        $downArrow.classList.add("arrow-down", "downvote");
+      }
+      else {
+        $downArrow.classList.add("arrow-down");
+      }
+      
+      
       $downArrow.innerHTML = "v";
-      $downArrow.addEventListener('click',function(){
-        if(!hasVoted[posts.indexOf(post)]) {
-          hasVoted[posts.indexOf(post)] = true;
+      $downArrow.addEventListener('click',function(ev){
+        if(hasVoted[posts.indexOf(post)] == 0) {
+          hasVoted[posts.indexOf(post)] = -1;
+          ev.currentTarget.classList.add("downvote");
           saveVotes();
           post.score -= 1;
           $score.innerHTML = post.score;

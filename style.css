@@ -56,6 +56,12 @@ h1, .but {
 
 /*DAF0F8*/
 
+#content {
+  /*322, 306*/
+  width: 322px;
+  height: 306px;
+}
+
 #buttons {
   width: auto;
   display: flex;
@@ -129,11 +135,23 @@ body{
 	font-size:95%;
 }
 
+.upvote, .downvote {
+  font-weight: bold;
+}
+
+.upvote {
+  color: green;
+}
+
+.downvote {
+  color: red;
+}
+
 #home-header {
   font-size: 33px;
 }
 
-@media screen and (max-width: 778px) {
+@media screen and (max-width: 795px) {
   #new-post-but {
     text-align: center;
   } 
@@ -152,7 +170,8 @@ body{
     width: 95%
   }
   
-  #detail-title {
+  #detail-title, #content {
     width: 100%;
   }
+  
 }
