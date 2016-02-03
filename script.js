@@ -52,6 +52,12 @@ var displayHome = function() {
     }
     localStorage.setItem("votes", JSON.stringify(hasVoted));
   }
+  else if(hasVoted.length != posts.length) {
+    for(var i = hasVoted.length; i < posts.length; i++) {
+      hasVoted.push(0);
+    }
+    localStorage.setItem("votes", JSON.stringify(hasVoted));
+  }
   loadHome();
 });
   
