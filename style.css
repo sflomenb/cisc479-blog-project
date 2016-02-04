@@ -6,6 +6,10 @@
   font-family: "Avenir";
 }
 
+a {
+  text-decoration: none;
+}
+
 #home {
   max-width: 783px;
 }
@@ -104,6 +108,18 @@ body{
   background:lightblue;
 }
 
+.by {
+  font-style: italic;
+}
+
+a > span {
+  font-size: 14px;
+}
+
+#detail-author > span {
+  font-size: 23px;
+}
+
 .post-left {
   overflow:hidden;
   align-self: center;
@@ -114,12 +130,17 @@ body{
   flex-direction: column;
 }
 
+a.post-text {
+  color: black;
+}
+
 .post-text{
   
   float:left;
   width:95%;
   overflow:hidden;
   /*background-color: teal;*/
+  padding-left: 5px;
 }
 
 .arrow-up, .arrow-down {

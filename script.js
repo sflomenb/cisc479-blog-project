@@ -36,7 +36,7 @@ var Post = function(title,content,author){
 //   display.innerHTML = template;
 // }
 
-var displayHome = function() {
+var displayHome = function(bool) {
   
   // posts = JSON.parse(localStorage.getItem("posts")) || posts;
   
@@ -58,37 +58,21 @@ var displayHome = function() {
     }
     localStorage.setItem("votes", JSON.stringify(hasVoted));
   }
-  loadHome();
+  if(bool){
+    handleTitle();
+  }else{
+    loadHome();
+  }
 });
   
-  // console.log("after snapshot",posts);
-  
-  /*$home.innerHTML = "";
-        
-  var $homeHeader = document.createElement('h1');
-  $homeHeader.setAttribute('id', 'home-header');
-  $homeHeader.innerHTML = "Welcome to my blog";
-  $home.appendChild($homeHeader);
-  
-  var mybr = document.createElement('br');
-  $home.appendChild(mybr);
-
-  var $but = document.createElement('div');
-  $but.setAttribute('id', 'new-post');
-  $but.classList.add('but');
-  $but.innerHTML = "Add Post";
-  $home.appendChild($but);
-  
-  var $flex = document.createElement('div');
-  // $flex.setAttriflexe('id', 'new-post');
-  $flex.classList.add('post-list');
-  // $flex.innerHTML = "Add Post";
-  $home.appendChild($flex);*/
   
   
 }
 
 var loadHome = function() {
+  console.log("inside load home");
+  document.getElementById(pages[1]).classList.add('hidden');
+  document.getElementById(pages[2]).classList.add('hidden');
   var $home = document.getElementById("home");
   var $postList = document.getElementById("post-list");
   
@@ -169,9 +153,15 @@ var loadHome = function() {
       $postLeft.appendChild($downArrow);
       
       
-      var $showText = document.createElement('div');
+      var $showText = document.createElement('a');
+      var ref = post.title;
+      ref = ref.replace(/ /g, '-');
+      ref = ref.toLowerCase();
+     
+      ref = "#" + ref;
+      $showText.setAttribute("href", ref);
       $showText.classList.add("post-text");
-      $showText.innerHTML = "<span class='home-post-title'>" + post.title+ "</span>" + "<br>by " + post.author + "<br><br>" + post.content.replace(/<br>/g," ").replace(/&nbsp;/g," ").substring(0,30) + "...";
+      $showText.innerHTML = "<span class='home-post-title'>" + post.title+ "</span>" + "<br><span class='by'>by</span> " + post.author + "<br><br>" + post.content.replace(/<br>/g," ").replace(/&nbsp;/g," ").substring(0,30) + "...";
       $showText.addEventListener('click',function(){
         displayPostDetails(post);
       });
@@ -200,7 +190,7 @@ var loadHome = function() {
 
 var displayPostDetails = function(post) {
   document.getElementById(pages[0]).classList.add('hidden');
-  
+  document.getElementById(pages[0]).classList.add('hidden');
   var $detail = document.getElementById("post-detail");
   
   $detail.innerHTML = "";
@@ -213,7 +203,8 @@ var displayPostDetails = function(post) {
   // $but.innerHTML = "Home";
   // $detail.appendChild($but);
   
-  var $goHome = document.createElement('div');
+  var $goHome = document.createElement('a');
+  $goHome.setAttribute("href", "#home");
   $goHome.setAttribute('id', 'back');
   $goHome.classList.add('but');
   $goHome.innerHTML = "Home";
@@ -228,7 +219,7 @@ var displayPostDetails = function(post) {
   var $postAuthor = document.createElement("div");
   $postAuthor.setAttribute('id', 'detail-author');
   $postAuthor.classList.add("detail");
-  $postAuthor.innerHTML = "By " + post.author;
+  $postAuthor.innerHTML = "<span class='by'>by</span> " + post.author;
   $detail.appendChild($postAuthor);
   
   var $postContent = document.createElement("div");
@@ -243,7 +234,7 @@ var displayPostDetails = function(post) {
   document.getElementById(pages[2]).classList.remove('hidden');
   document.getElementById("back").addEventListener('click',function(){
     document.getElementById(pages[2]).classList.add('hidden');
-    displayHome();
+    displayHome(false);
   });
 }
 
@@ -258,7 +249,7 @@ var submit = function() {
   var content = document.getElementById("content").value;
   
   var content = content.replace(/ /g,"&nbsp;");
-  var content = content.replace(/(?:\r\n|\r|\n)/g, '<br>');
+  var content = content.replace(/(?:\r\nr|\n)/g, '<br>');
 
   var author = document.getElementById("author").value;
   posts.push(new Post(title, content, author));
@@ -266,7 +257,7 @@ var submit = function() {
   document.getElementById("title").value = "";
   document.getElementById("content").value = "";
   document.getElementById("author").value = "";
-  displayHome();
+  displayHome(false);
 }
 
 
@@ -299,11 +290,11 @@ var checkValid = function() {
 
 
 var init = function() {
-  displayHome();
+  //displayHome(false);
   
   document.getElementById("cancel").addEventListener('click',function(){
     document.getElementById(pages[1]).classList.add('hidden');
-    displayHome();
+    displayHome(false);
   });
   document.getElementById("submit").addEventListener('click',function(){
     
@@ -318,3 +309,31 @@ var init = function() {
 }
 
 init();
+var handleTitle = function(){
+  for(var i = 0; i < posts.length; i++) {
+        var t = posts[i].title;
+        t = t.replace(/ /g, "-");
+        t = t.toLowerCase();
+        t = "#" + t;
+        if(location.hash == t){
+          displayPostDetails(posts[i]);
+        }
+      }
+      
+}
+var handleHash = function(){
+        //document.body.innerHTML = document.querySelector(location.hash).innerHTML;
+        //displayNewPost();
+    //displayHome(false);
+    if(location.hash == "" || location.hash == "#home"){
+      displayHome(false);
+    }
+    else if(location.hash == "#new-post"){
+      displayNewPost();
+    }else{
+      displayHome(true);
+      
+    }
+};
+window.addEventListener("hashchange", handleHash);
+window.addEventListener("load", handleHash);

@@ -11,7 +11,7 @@
         <div id="home-top">
             <div id="home-header">Design Patterns Blog</div>
             <br>
-            <div id="new-post-but" class="but">Add Post</div>
+            <a href="#new-post" id="new-post-but" class="but">Add Post</a>
         </div>
         <div id="post-list"></div>
     </div>
@@ -21,12 +21,13 @@
         <input placeholder="Author" id="author" type="text"><br>
         <textarea  placeholder="Enter content of post" id="content"></textarea><br>
         <div id="buttons">
-        	<div id="submit" class="but">Submit</div>
-        	<div id="cancel" class="but">Cancel</div>
+        	<a href="#home" id="submit" class="but">Submit</a>
+        	<a href="#home" id="cancel" class="but">Cancel</a>
   		</div>
     </div>
     <div class="hidden" id="post-detail">
     </div>
+    <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </body>
