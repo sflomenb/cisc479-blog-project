@@ -229,6 +229,14 @@ var displayPostDetails = function(post) {
   $postContent.innerHTML = content;
   $detail.appendChild($postContent);
   
+  var $left = document.createElement("div");
+  $left.setAttribute('id', 'left');
+  $detail.appendChild($left);
+  
+  var $right = document.createElement("div");
+  $right.setAttribute('id', 'right');
+  $detail.appendChild($right);
+  
   // $postContent.innerHTML = post.title + " by " + post.author+"<br>"+post.content;
   
   document.getElementById(pages[2]).classList.remove('hidden');
