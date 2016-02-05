@@ -36,6 +36,8 @@ var Post = function(title,content,author){
 //   display.innerHTML = template;
 // }
 
+var valid=true;
+
 var displayHome = function(bool) {
   
   // posts = JSON.parse(localStorage.getItem("posts")) || posts;
@@ -276,7 +278,7 @@ var submit = function() {
 //console.log(document.getElementById("new-post"));
 
 var checkValid = function() {
-  var valid = true;
+  valid = true;
   var title = document.getElementById("title");
   var author = document.getElementById("author");
   
@@ -301,6 +303,7 @@ var init = function() {
   //displayHome(false);
   
   document.getElementById("cancel").addEventListener('click',function(){
+    valid=true;
     document.getElementById(pages[1]).classList.add('hidden');
     displayHome(false);
   });
@@ -316,7 +319,7 @@ var init = function() {
   
 }
 
-init();
+
 var handleTitle = function(){
   for(var i = 0; i < posts.length; i++) {
         var t = posts[i].title;
@@ -330,9 +333,13 @@ var handleTitle = function(){
       
 }
 var handleHash = function(){
+  if(!valid){
+    location.hash = "new-post";
+  }
         //document.body.innerHTML = document.querySelector(location.hash).innerHTML;
         //displayNewPost();
     //displayHome(false);
+    
     if(location.hash == "" || location.hash == "#home"){
       displayHome(false);
     }
@@ -343,5 +350,6 @@ var handleHash = function(){
       
     }
 };
+init();
 window.addEventListener("hashchange", handleHash);
 window.addEventListener("load", handleHash);
